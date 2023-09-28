@@ -25,11 +25,11 @@ def createSchema():
           "vectorizer": "img2vec-neural",
           "properties": [
             {
-              "name": "File Path",
+              "name": "file_name",
               "dataType": ["text"]
             },
             {
-              "name": "Image",
+              "name": "image",
               "dataType": ["blob"]
             }
           ]
@@ -80,14 +80,14 @@ def import_data():
                 base64_encoding = " ".join(file_lines)
                 base64_encoding = base64_encoding.replace("\n", "").replace(" ", "")
 
-                name = encoded_file_path.replace(".b64", "")
+                file_name = encoded_file_path.replace(".b64", "")
 
                 data_properties = {
-                    "name": name,
+                    "file_name": file_name,
                     "image": base64_encoding
                 }
 
-                batch.add_data_object(data_properties, "Person")
+                batch.add_data_object(data_properties, "Fruit")
                 
     print("Finished importing data")
 
@@ -106,7 +106,7 @@ def query(query):
         testImage["image"] = img_base64
 
     query_result = client.query\
-        .get("Person", ["name"])\
+        .get("Fruit", ["file_name"])\
         .with_near_image(testImage, encode=False)\
         .with_limit(3)\
         .do()
