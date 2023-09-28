@@ -11,5 +11,6 @@ docker compose up
 To run the code:
 
 ```shell
-python ./Code/main.py
+cd Code
+python main.py
 ```
